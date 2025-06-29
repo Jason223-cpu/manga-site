@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add VIP User</title>
+</head>
+<body>
+  <h1>⭐ Add VIP User</h1>
+
+  <!-- Type the user ID you get from them -->
+  <input type="text" id="uid" placeholder="User ID"><br><br>
+
+  <!-- Choose the date when VIP should end -->
+  <input type="date" id="expires"><br><br>
+
+  <button onclick="addVIP()">Add VIP</button>
+
+  <p id="status"></p>
+
+  <!-- Firebase Setup (copy-paste from your config) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+  <!-- These lines load Firebase into the page -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+<!-- Then load your own script -->
+<script src="script.js"></script>
+
+</body>
+</html>

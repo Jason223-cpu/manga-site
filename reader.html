@@ -1,0 +1,46 @@
+<!-- reader.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Manga Reader</title>
+</head>
+<body>
+  <h1>📖 Manga Reader</h1>
+  <div id="manga"></div>
+  <p id="message"></p>
+
+  <!-- Firebase setup -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="script.js"></script>
+
+  <script>
+    // Get current user
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const manga = new URLSearchParams(window.location.search).get("manga");
+
+        // Check if manga is VIP-only (starts with "vip-")
+        if (manga && manga.startsWith("vip-")) {
+          // Check VIP status from Firestore
+          db.collection("vip_users").doc(user.uid).get().then(doc => {
+            if (doc.exists && doc.data().vip) {
+              document.getElementById("manga").innerText = "✅ Welcome VIP! You can read: " + manga;
+            } else {
+              document.getElementById("message").innerText = "❌ This manga is for VIPs only. Please pay and send your ID.";
+            }
+          });
+        } else if (manga) {
+          // Free manga
+          document.getElementById("manga").innerText = "📚 You can read: " + manga;
+        } else {
+          document.getElementById("message").innerText = "❓ No manga selected.";
+        }
+      } else {
+        document.getElementById("message").innerText = "⚠️ Please log in to read manga.";
+      }
+    });
+  </script>
+</body>
+</html>
